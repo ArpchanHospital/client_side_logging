@@ -1,28 +1,18 @@
-import logging
-from logging.handlers import TimedRotatingFileHandler
-
-
 from flask import Flask, request, make_response
 
+from RotatingLogger import RotatingLogger
 
-CLIENT_SIDE_LOG_FILE = 'client-side.log'
+LOGGER_NAME = "client_side"
+
+CONFIG_FILE = "logging.yml"
 
 app = Flask(__name__)
-logger = logging.getLogger("Client Side ")
-logger.setLevel(logging.ERROR)
-log_handler = TimedRotatingFileHandler(CLIENT_SIDE_LOG_FILE, when='s', interval=5)
-log_handler.setLevel(logging.ERROR)
-log_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-log_handler.setFormatter(log_formatter)
-logger.addHandler(log_handler)
-
 
 
 @app.route("/", methods=["POST"])
 def client_side_logging():
-    # logging.basicConfig(format='%(levelname)s: %(asctime)s  ---  %(message)s', filename=CLIENT_SIDE_LOG_FILE, level=logging.ERROR)
-    # logging.error(request.data)
-    logger.error(request.data)
+    logger = RotatingLogger(CONFIG_FILE, LOGGER_NAME)
+    logger.log.error(request.data)
     return make_response(request.data, 201)
 
 

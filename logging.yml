@@ -1,0 +1,17 @@
+version: 1
+formatters:
+  simple:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+handlers:
+  file:
+    class: logging.handlers.TimedRotatingFileHandler
+    level: ERROR
+    formatter: simple
+    filename: "/var/log/client-side-logs/client-side.log"
+    when: 's'
+    interval: 5
+loggers:
+  client_side:
+    level: ERROR
+    handlers: [file]
+    propagate: no
