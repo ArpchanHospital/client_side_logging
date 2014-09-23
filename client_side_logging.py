@@ -10,9 +10,15 @@ app = Flask(__name__)
 
 logger = RotatingLogger(CONFIG_FILE, LOGGER_NAME)
 
+
+def format_log(request):
+    return "Client IP : %s, Post Data : %s" % (str(request.remote_addr), request.data)
+
+
 @app.route("/", methods=["POST"])
 def client_side_logging():
-    logger.log.error(request.data)
+    log_data = format_log(request)
+    logger.log.error(log_data)
     return make_response(request.data, 201)
 
 
