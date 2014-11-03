@@ -9,9 +9,9 @@ class RotatingLogger:
     def __init__(self, config_file, logger_name):
         config_dict = self.get_config(config_file)
         self.log = logging.getLogger(logger_name)
-        handler = logging.handlers.TimedRotatingFileHandler(filename=config_dict["filename"],
-                                                            when=config_dict["when"],
-                                                            interval=config_dict["interval"])
+        handler = logging.handlers.RotatingFileHandler(filename=config_dict["filename"],
+                                                       maxBytes=config_dict["maxBytes"],
+                                                       backupCount=config_dict["backupCount"])
         formatter = logging.Formatter(fmt=config_dict["format"])
         handler.setFormatter(formatter)
         handler.setLevel(logging.ERROR)

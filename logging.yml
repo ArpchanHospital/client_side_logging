@@ -1,5 +1,5 @@
 level: "ERROR"
 filename: "/var/log/client-side-logs/client-side.log"
-when: 'D'
-interval: 7
+maxBytes: 1048576
+backupCount: 50
 format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
