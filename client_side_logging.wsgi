@@ -1,1 +1,1 @@
-from client_side_logging.client_side_logging import app as application
+from client_side_logging import app as application
